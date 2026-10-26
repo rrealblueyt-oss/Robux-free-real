@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>???</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: background 1s ease;
+        }
+
+        .container {
+            text-align: center;
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            border: 1px solid #333;
+            transition: all 0.8s ease;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input::placeholder {
+            color: #777;
+        }
+
+        input:focus {
+            border-color: #00ff88;
+        }
+
+        .btn-vao {
+            display: none;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00ff88, #00b3ff);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.3s;
+        }
+
+        .btn-vao:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        .vip-content {
+            display: none;
+        }
+
+        .vip-content h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .robux-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .robux-card {
+            background: #252525;
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .robux-card:hover {
+            background: #333;
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            display: none;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            color: #00ff88;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-box .check {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        body.vip-active {
+            background: radial-gradient(circle, #2c003e 0%, #0f0f19 100%);
+        }
+
+        body.vip-active .container {
+            background: linear-gradient(135deg, rgba(40, 0, 60, 0.8), rgba(20, 20, 40, 0.9));
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <div id="loginSection">
+            <h1>???</h1>
+            <div class="input-group">
+                <input type="text" id="usernameInput" placeholder="usernameroblox">
+            </div>
+            <button class="btn-vao" id="btnVao">vào</button>
+        </div>
+
+        <div class="vip-content" id="vipSection">
+            <h2>MENU VIP ROBLOX</h2>
+            <div class="robux-grid">
+                <div class="robux-card" onclick="claimRobux(100)">100 Robux</div>
+                <div class="robux-card" onclick="claimRobux(300)">300 Robux</div>
+                <div class="robux-card" onclick="claimRobux(500)">500 Robux</div>
+                <div class="robux-card" onclick="claimRobux(777)">777 Robux</div>
+            </div>
+            <div class="result-box" id="resultBox">
+                <span class="check">✓</span> <span id="resultText"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('usernameInput');
+        const btnVao = document.getElementById('btnVao');
+        const loginSection = document.getElementById('loginSection');
+        const vipSection = document.getElementById('vipSection');
+        const mainContainer = document.getElementById('mainContainer');
+        const resultBox = document.getElementById('resultBox');
+        const resultText = document.getElementById('resultText');
+
+        usernameInput.addEventListener('input', function() {
+            if (usernameInput.value.trim().length > 0) {
+                btnVao.style.display = 'block';
+            } else {
+                btnVao.style.display = 'none';
+            }
+        });
+
+        btnVao.addEventListener('click', function() {
+            document.body.classList.add('vip-active');
+            loginSection.style.display = 'none';
+            vipSection.style.display = 'block';
+        });
+
+        function claimRobux(amount) {
+            resultBox.style.display = 'block';
+            resultText.innerText = `đã nhận ${amount} robux`;
+        }
+    </script>
+</body>
+</html>
